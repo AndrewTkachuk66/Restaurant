@@ -1,7 +1,8 @@
 package controllers;
 
 import dao.user.UserDao;
-import dao.user.UserImpl;
+import dao.user.UserDaoImpl;
+import models.Basket;
 import models.User;
 import org.apache.log4j.Logger;
 
@@ -21,7 +22,7 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
 
     private static final Logger log = Logger.getLogger(String.valueOf(LoginServlet.class));
-    UserDao userDao = new UserImpl();
+    UserDao userDao = new UserDaoImpl();
     User user = new User();
 
     /**

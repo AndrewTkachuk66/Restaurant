@@ -7,22 +7,23 @@ import java.util.List;
 
 public class Basket {
 
-  private List<Dish> orderList  = new ArrayList<>();
+  private static List<Dish> orderList  = new ArrayList<>();
 
    public Basket(List<Dish> orderList){
         this.orderList = orderList;
     }
 
+   public Basket(){}
+
     /**method add product to order list**/
 
-    public List<Dish> addProductToBasket(Dish dish) throws NullPointerException {
+    public void addProductToBasket(Dish dish)  {
         orderList.add (dish);
-        return orderList;
     }
 
     /**method remove product from order list**/
 
-    public List<Dish> removeProductFromBasket (Dish dish) throws NullPointerException {
+    public void removeProductFromBasket (Dish dish) {
         int id = dish.getId ();
         for (int i = 0; i < orderList.size (); i++) {
             Dish model = orderList.get (i);
@@ -30,21 +31,18 @@ public class Basket {
             if (id == tempId) {
                 orderList.remove (i);
             }
-        }return orderList;
-
+        }
     }
   /**method gives price of order**/
-    public static int getPriceOfOrder(List<Dish> list) throws NullPointerException{
+    public  int getPriceOfOrder() {
       int totalPrice = 0;
-       for(Dish dish : list){
+       for(Dish dish : orderList){
          totalPrice +=  dish.getPrice();
        }
        return totalPrice;
     }
 
-    public List<Dish> getOrder() throws NullPointerException {
+    public List<Dish> getOrder() {
         return orderList;
     }
-
-
 }

@@ -1,7 +1,7 @@
 package controllers;
 
 import dao.user.UserDao;
-import dao.user.UserImpl;
+import dao.user.UserDaoImpl;
 import models.User;
 import org.apache.log4j.Logger;
 
@@ -25,7 +25,7 @@ public class RegistrationServlet extends HttpServlet {
  * If login is free,the user successfully added to Database and the user is redirected to login.jsp **/
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDao userDao = new UserImpl();
+        UserDao userDao = new UserDaoImpl();
         String login = request.getParameter ("login");
         String name = request.getParameter ("name");
         String password = request.getParameter ("password");

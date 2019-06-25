@@ -1,7 +1,7 @@
 package controllers;
 
 import dao.dish.DishDao;
-import dao.dish.DishImpl;
+import dao.dish.DishDaoImpl;
 import models.Basket;
 import models.Dish;
 import models.User;
@@ -19,20 +19,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** class contains static list of user's orders. User can delete or insert dishes to this list. The list and
+/** class contains list of user's orders. User can delete or insert dishes to this list. The list and
  * price of order pass as attribute in basket.jsp**/
 @WebServlet("/basket")
 public class BasketServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(String.valueOf(BasketServlet.class));
-    DishDao dishDao = new DishImpl();
-    public static List<Dish> orderList = new ArrayList<>();
+    DishDao dishDao = new DishDaoImpl();
 
     /**the method through the DAO layer takes from database id of the dish that the user wants to add or delete dish from list
      **/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Dish dish = null;
         HttpSession httpSession = request.getSession();
-        Basket basket = new Basket(orderList);
+        Basket basket = new Basket();
         User user = (User)httpSession.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
         String action = request.getParameter("action");
@@ -43,27 +42,15 @@ public class BasketServlet extends HttpServlet {
         }
         dish.setId(id);
         if (action.equalsIgnoreCase("insert")) {
-           try{
-               orderList = basket.addProductToBasket(dish);
-           }catch (NullPointerException e){
-               log.error(e);
-           }
-            log.info(dish.getName() + " is added to " + user.getName() + " basket");
+               basket.addProductToBasket(dish);
+                log.info(dish.getName() + " is added to " + user.getName() + " basket");
         }
        else if (action.equalsIgnoreCase("delete")) {
-          try{
-              orderList = basket.removeProductFromBasket(dish);
-          }catch (NullPointerException e){
-              log.error(e);
-          }
+            basket.removeProductFromBasket(dish);
             log.info(dish.getName() + " is removed from " + user.getName() + " basket");
         }
-        try{
-            request.setAttribute("list", basket.getOrder());
-            request.setAttribute("price",basket.getPriceOfOrder(orderList));
-        }catch (NullPointerException e){
-            log.error(e);
-        }
+        request.setAttribute("list", basket.getOrder());
+        request.setAttribute("price",basket.getPriceOfOrder());
         request.getRequestDispatcher("baskets/basket.jsp").forward(request, response);
     }
 }

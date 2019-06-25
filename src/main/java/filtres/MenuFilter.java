@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/** common filter checks if the user is login. Menu can be shown only login users**/
+/** common filter checks if the user is login. MenuDaoImpl can be shown only login users**/
 
 public class MenuFilter implements javax.servlet.Filter {
     private FilterConfig filterConfig;

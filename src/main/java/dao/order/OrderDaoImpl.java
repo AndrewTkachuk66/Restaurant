@@ -11,18 +11,19 @@ import javax.naming.NamingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OrderImpl implements OrderDao {
+public class OrderDaoImpl implements OrderDao {
 
     /**method for making orders. If user has enough money on his bank account - transaction happens**/
 
     @Override
-    public boolean makeOrder (User user ) throws SQLException, NamingException, NullPointerException, ClassNotFoundException {
+    public boolean makeOrder (User user ) throws SQLException, NamingException, ClassNotFoundException {
         boolean orderSuccess = true;
         Order order = new Order ();
         order.setUser (user);
         int userId = order.getUser().getId ();
         Double userMoney = 0d;
-        double priceOfOrder = Basket.getPriceOfOrder(BasketServlet.orderList);
+        Basket basket = new Basket();
+        double priceOfOrder = basket.getPriceOfOrder();
         String paymentQuery = "SElECT * from users_bank_balance where userId = " + userId;
         ResultSet resultSet = SQLConnectionPool.executeQuery(paymentQuery);
         while (resultSet.next ()) {

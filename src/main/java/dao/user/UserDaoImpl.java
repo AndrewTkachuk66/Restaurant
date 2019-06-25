@@ -7,7 +7,7 @@ import javax.naming.NamingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserImpl implements UserDao {
+public class UserDaoImpl implements UserDao {
 
     public void addUser ( models.User user ) throws SQLException, NamingException {
         String name = user.getName ();

@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DishImpl implements DishDao {
+public class DishDaoImpl implements DishDao {
 
     /**method for getting dish by id from database**/
 
@@ -20,7 +20,7 @@ public class DishImpl implements DishDao {
         while (rs.next()) {
             dish = new Dish();
             dish.setName(rs.getString("name"));
-            dish.setPrice(rs.getDouble("price"));
+            dish.setPrice(rs.getInt("price"));
         }
         return dish;
     }

@@ -1,6 +1,6 @@
 package controllers;
 
-import dao.menu.Menu;
+import dao.menu.MenuDaoImpl;
 import dao.menu.MenuDao;
 import models.User;
 import org.apache.log4j.Logger;
@@ -25,7 +25,7 @@ public class MenuServlet extends HttpServlet {
     * and and passes as an attribute to menu.jsp**/
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MenuDao menu = new Menu();
+        MenuDao menu = new MenuDaoImpl();
         try {
             request.setAttribute("list", menu.getMenu());
         } catch (SQLException | NamingException e){

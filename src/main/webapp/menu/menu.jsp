@@ -32,7 +32,6 @@
        ${user.name}
    </jsp:attribute>
 </p:mainPages>
-    <%--<img  width="100%" height="100%" src="${pageContext.request.contextPath}/images/fon2.jpg"/>--%>
     </body>
 </table>
 

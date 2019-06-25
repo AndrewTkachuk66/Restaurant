@@ -1,7 +1,8 @@
 package controllers;
 
 import dao.order.OrderDao;
-import dao.order.OrderImpl;
+import dao.order.OrderDaoImpl;
+import models.Basket;
 import models.User;
 import org.apache.log4j.Logger;
 
@@ -20,7 +21,7 @@ import java.sql.SQLException;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(String.valueOf (LoginServlet.class));
-    OrderDao orderDao = new OrderImpl();
+    OrderDao orderDao = new OrderDaoImpl();
 
     /**he method checks the presence of dishes in the list. If there is at least one dish, an order will be formed.
      * Otherwise, a message will be displayed**/
@@ -28,9 +29,10 @@ public class OrderServlet extends HttpServlet {
         boolean orderSuccess;
         HttpSession httpSession = request.getSession();
         User user = (User) httpSession.getAttribute("user");
+        Basket basket = new Basket();
         try {
             orderSuccess = orderDao.makeOrder(user);
-            if(BasketServlet.orderList.isEmpty()){
+            if(basket.getOrder().isEmpty()){
                 response.getWriter().println("Your basket is empty");
                 return;
             }
@@ -42,12 +44,12 @@ public class OrderServlet extends HttpServlet {
                         "Problems with a transaction or insufficient money in the account");
                 return;
             }
-            } catch (SQLException | NamingException | NullPointerException | ClassNotFoundException e) {
+            } catch (SQLException | NamingException  | ClassNotFoundException e) {
             log.error(e);
             response.getWriter().println("\n" +
                     "Login or register please ");
             }finally {
-            BasketServlet.orderList.clear();
+            basket.getOrder().clear();
         }
     }
 }

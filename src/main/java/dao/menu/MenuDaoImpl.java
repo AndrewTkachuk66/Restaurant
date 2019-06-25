@@ -9,19 +9,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu implements MenuDao {
+public class MenuDaoImpl implements MenuDao {
 
     /**method for getting menu list from database**/
 
     public List<Dish> getMenu () throws SQLException, NamingException {
-        List<Dish> list = new ArrayList<>();
+        List<Dish> list = new ArrayList<Dish>();
         String query = "Select * from dishes INNER JOIN menu ON (dishes.id = menu.dishId);";
         ResultSet rs = SQLConnectionPool.executeQuery(query);
         while (rs.next ()) {
             Dish dish = new Dish();
             dish.setId(rs.getInt("id"));
             dish.setName(rs.getString("name"));
-            dish.setPrice(rs.getDouble("price"));
+            dish.setPrice(rs.getInt("price"));
             list.add(dish);
         }return list;
     }

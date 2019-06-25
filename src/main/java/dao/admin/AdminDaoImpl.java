@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminImpl implements AdminDao  {
+public class AdminDaoImpl implements AdminDao  {
 
 /**method for getting all orders from database**/
 

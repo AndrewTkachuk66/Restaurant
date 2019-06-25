@@ -11,9 +11,17 @@ public class Dish  {
 
     private String name;
 
-    private double price;
+    private int price;
+
+
 
     public Dish() {
+    }
+
+    public Dish(int id, String name, int price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
     }
 
     public int getId () {
@@ -36,7 +44,7 @@ public class Dish  {
         return price;
     }
 
-    public void setPrice ( double price ) {
+    public void setPrice ( int price ) {
         this.price = price;
     }
 

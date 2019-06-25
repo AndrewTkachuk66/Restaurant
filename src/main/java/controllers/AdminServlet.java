@@ -1,7 +1,7 @@
 package controllers;
 
 import dao.admin.AdminDao;
-import dao.admin.AdminImpl;
+import dao.admin.AdminDaoImpl;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(String.valueOf(BasketServlet.class));
-    AdminDao adminDao = new AdminImpl();
+    AdminDao adminDao = new AdminDaoImpl();
 
     /** the method makes a request through the DAO layer to the database, extracts the clients list
      * and passes it as an attribute to admin.jsp**/
